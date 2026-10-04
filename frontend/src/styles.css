@@ -33,5 +33,6 @@ h1, .serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; 
 button { background: var(--rose); color: #fff; border: 0; border-radius: 12px; padding: 8px 14px; font: inherit; cursor: pointer; }
 button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
 input, textarea { width: 100%; padding: 10px; border-radius: 12px; border: 1px solid var(--line); font: inherit; margin: 6px 0 12px; background: #fff; }
+button:disabled { opacity: .45; cursor: not-allowed; }
 .menu-btn { position: fixed; left: 16px; top: 16px; z-index: 10; }
 .err { color: #a33; }

@@ -6,7 +6,8 @@
       <article v-for="w in rows" :key="w.id" class="card" @click="$router.push('/wishes/'+w.id)">
         <h3>{{ w.title || '（无标题）' }}</h3>
         <p>{{ w.note }}</p>
-        <span class="tag">{{ w.status }} · {{ w.data_quality }}</span>
+        <!-- 认领人 / 代买人同钉；buyer 空时仅显示认领人 -->
+        <span class="tag">{{ w.status }} · {{ peopleLine(w) }} · {{ w.data_quality }}</span>
       </article>
     </div>
   </div>
@@ -14,6 +15,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '../api'
+import { peopleLine } from '../people'
 const rows = ref([])
 onMounted(async () => { rows.value = await api('/wishes') })
 </script>
