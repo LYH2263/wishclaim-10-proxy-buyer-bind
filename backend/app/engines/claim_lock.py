@@ -21,11 +21,12 @@ def claim_allowed(status: str, claimer: str | None, now: datetime, expires_at: s
         return {"ok": True, "reason": ""}
     return {"ok": False, "reason": "bad_status"}
 
-def lock_payload(claimer: str, now: datetime, ttl_seconds: int) -> dict:
+def lock_payload(claimer: str, now: datetime, ttl_seconds: int, buyer: str | None = None) -> dict:
     exp = now + timedelta(seconds=ttl_seconds)
     return {
         "status": "claimed",
         "claimer": claimer,
+        "buyer": buyer,
         "claimed_at": now.isoformat(),
         "expires_at": exp.isoformat(),
     }
@@ -34,5 +35,6 @@ def release_if_expired(status: str, expires_at: str | None, now: datetime) -> di
     if status != "claimed" or not expires_at:
         return None
     if parse_ts(expires_at) <= now:
-        return {"status": "open", "claimer": None, "claimed_at": None, "expires_at": None}
+        return {"status": "open", "claimer": None, "buyer": None,
+                "claimed_at": None, "expires_at": None}
     return None

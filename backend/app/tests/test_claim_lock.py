@@ -16,3 +16,13 @@ def test_lock_payload_sets_expiry():
     assert p["status"] == "claimed" and p["claimer"] == "bob"
     assert release_if_expired("claimed", p["expires_at"], NOW) is None
     assert release_if_expired("claimed", (NOW - timedelta(seconds=1)).isoformat(), NOW)["status"] == "open"
+
+
+def test_lock_payload_carries_buyer():
+    assert lock_payload("alice", NOW, 60)["buyer"] is None
+    assert lock_payload("alice", NOW, 60, buyer="bob")["buyer"] == "bob"
+
+
+def test_release_if_expired_clears_buyer():
+    rel = release_if_expired("claimed", (NOW - timedelta(seconds=1)).isoformat(), NOW)
+    assert rel["buyer"] is None and rel["claimer"] is None

@@ -7,6 +7,7 @@
         <h3>{{ w.title || '（无标题）' }}</h3>
         <p>{{ w.note }}</p>
         <span class="tag">{{ w.status }} · {{ w.data_quality }}</span>
+        <PinParty :wish="w" />
       </article>
     </div>
   </div>
@@ -14,6 +15,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { api } from '../api'
+import PinParty from '../components/PinParty.vue'
 const rows = ref([])
 onMounted(async () => { rows.value = await api('/wishes') })
 </script>

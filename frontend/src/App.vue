@@ -6,6 +6,7 @@
     <div v-if="drawer" class="drawer-backdrop" @click="drawer=false"></div>
     <aside v-if="drawer" class="drawer">
       <h2 class="serif">我的</h2>
+      <IdentityBar />
       <router-link to="/mine" @click="drawer=false">我的认领</router-link>
       <router-link to="/done" @click="drawer=false">已完成</router-link>
       <router-link to="/rules" @click="drawer=false">规则</router-link>
@@ -15,5 +16,6 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import IdentityBar from './components/IdentityBar.vue'
 const drawer = ref(false)
 </script>
